@@ -27,11 +27,12 @@ def rcLatex(fontSize = 16, flipY = False):
 
 def getFigureAxes(figsize = (8, 5), left = -10, right = 10, top = 10, bottom = -10,
 leftLim = None, rightLim = None, topLim = None, bottomLim = None,
+leftArrow = True, rightArrow = True, topArrow = True, bottomArrow = True,
 yLabel = "y", xLabel = "x", xPosition = "right", flipY = False):
 
     if flipY:
         plot.rcParams.update({
-            "ytick.major.pad": -30,
+            "ytick.major.pad": -40,
         })
 
     if leftLim == None:
@@ -55,18 +56,15 @@ yLabel = "y", xLabel = "x", xPosition = "right", flipY = False):
     if flipY:
         axes.axis["yzero"].major_ticklabels.set_ha("left")
 
-    if right != 0: axes.quiver([right], [0], scale_units="xy", scale=1, width=0.0025, headwidth=5)
-    if left != 0: axes.quiver([left], [0], scale_units="xy", scale=1, width=0.0025, headwidth=5)
-    if top != 0: axes.quiver([0], [top], scale_units="xy", scale=1, width=0.0025, headwidth=5)
-    if bottom != 0: axes.quiver([0], [bottom], scale_units="xy", scale=1, width=0.0025, headwidth=5)
+    if right != 0: axes.quiver([right], [0], scale_units="xy", scale=1, width=0.0025, headwidth=5 if rightArrow else 0)
+    if left != 0: axes.quiver([left], [0], scale_units="xy", scale=1, width=0.0025, headwidth=5 if leftArrow else 0)
+    if top != 0: axes.quiver([0], [top], scale_units="xy", scale=1, width=0.0025, headwidth=5 if topArrow else 0)
+    if bottom != 0: axes.quiver([0], [bottom], scale_units="xy", scale=1, width=0.0025, headwidth=5 if bottomArrow else 0)
     axes.set_xlim(left=leftLim, right=rightLim)
     axes.set_ylim(bottom=bottomLim, top=topLim)
     
-    if xPosition == "right":
-        axes.text(right * 1.03, (top - bottom) * 0.005, "$" + xLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
-    else:
-        axes.text(left * 1.03, (top - bottom) * 0.005, "$" + xLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
-    axes.text(0, top * 1.08, "$" + yLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
+    axes.text(rightLim if xPosition == "right" else leftLim * 1.03, (top - bottom) * 0.005, "$" + xLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
+    axes.text(0, top + (topLim - bottomLim) * 0.05, "$" + yLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
 
     return figure, axes
 

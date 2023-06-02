@@ -7,7 +7,7 @@ import default
 from euler import eulerRecord
 
 default.rcLatex(fontSize=14)
-figure, axes = default.getFigureAxes(left=0, right=1.2, top=8, bottom=-12)
+figure, axes = default.getFigureAxes(left=0, right=1.2, top=8, bottom=-12, bottomArrow=False)
 
 def derivative(x, y, stepSize, previousDerivative):
     return previousDerivative + stepSize * ((3/2) * y * y)
