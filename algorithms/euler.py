@@ -1,5 +1,14 @@
 import numpy as np
 
+def eulerRecordEveryStep(start, startValue, startDerivative, end, stepSize, derivativeFunction):
+    result = [startValue]
+    while start < end:
+        start += stepSize
+        startValue += stepSize * startDerivative
+        startDerivative = derivativeFunction(start, startValue, stepSize, startDerivative)
+        result.append(startValue)
+    return np.asarray(result)
+
 def eulerRecord(start, startValue, startDerivative, end, steps, record, derivativeFunction):
     result = [startValue]
     stepSize = (end - start)/steps

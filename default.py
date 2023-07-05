@@ -63,8 +63,8 @@ yLabel = "y", xLabel = "x", xPosition = "right", flipY = False):
     axes.set_xlim(left=leftLim, right=rightLim)
     axes.set_ylim(bottom=bottomLim, top=topLim)
     
-    axes.text(rightLim if xPosition == "right" else leftLim * 1.03, (top - bottom) * 0.005, "$" + xLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
-    axes.text(0, top + (topLim - bottomLim) * 0.05, "$" + yLabel + "$", fontsize=16, horizontalalignment="center", verticalalignment="center");
+    axes.text(rightLim if xPosition == "right" else leftLim * 1.03, (top - bottom) * 0.005, "$" + xLabel + "$" if xLabel != "" else "", fontsize=16, horizontalalignment="center", verticalalignment="center");
+    axes.text(0, top + (topLim - bottomLim) * 0.05, "$" + yLabel + "$" if yLabel != "" else "", fontsize=16, horizontalalignment="center", verticalalignment="center");
 
     return figure, axes
 
